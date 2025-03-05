@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import SearchBox from "./Searchbox";
+import SearchBox from "./SearchBox";
 import Book from "./Book";
 import { v4 as uuidv4 } from "uuid";
 
