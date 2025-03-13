@@ -22,19 +22,28 @@ export default function Task05() {
   const handleDragEnd = (event) => {
     const { active, over } = event;
     if (!over) return;
-
+  
     const sourceColumnId = Object.keys(columns).find((key) =>
       columns[key].some((task) => task.id === active.id)
     );
-    const targetColumnId = over.id;
-
+  
+    let targetColumnId = over.id;
+  
+    if (!columns[targetColumnId]) {
+      targetColumnId = Object.keys(columns).find((key) =>
+        columns[key].some((task) => task.id === over.id)
+      );
+    }
+  
     if (!sourceColumnId || !targetColumnId || sourceColumnId === targetColumnId) return;
-
+  
     setColumns((prev) => {
       const sourceTasks = [...prev[sourceColumnId]];
       const targetTasks = [...prev[targetColumnId]];
       const movedTask = sourceTasks.find((task) => task.id === active.id);
-
+  
+      if (!movedTask) return prev;
+  
       return {
         ...prev,
         [sourceColumnId]: sourceTasks.filter((task) => task.id !== active.id),
@@ -42,7 +51,7 @@ export default function Task05() {
       };
     });
   };
-
+  
   return (
     <DndContext collisionDetection={closestCorners} onDragEnd={handleDragEnd}>
       <div className="grid grid-cols-5 gap-4 p-4">

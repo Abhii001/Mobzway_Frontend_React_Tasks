@@ -1,10 +1,9 @@
-import React from "react";
 import { useDroppable } from "@dnd-kit/core";
 import { SortableContext, verticalListSortingStrategy } from "@dnd-kit/sortable";
 import Task from "./Task";
 
 function TaskColumn({ id, tasks }) {
-  const { setNodeRef } = useDroppable({ id });
+  const { setNodeRef } = useDroppable({ id }); // Mark the column as a droppable area
 
   return (
     <div ref={setNodeRef} className="task-column bg-white rounded-lg shadow-lg p-4 flex flex-col gap-4">
